@@ -56,7 +56,7 @@ if [ ${config} -eq 1 ]; then
    rm -fr ${configok} ${buildok}
    sudo make uninstall
    sudo make clean distclean
-   export CFLAGS="-Ofast -funroll-all-loops"
+   export CFLAGS="-Ofast"
    ./configure \
       --prefix=/usr/local/ \
       --with-features=huge \
