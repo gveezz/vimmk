@@ -56,7 +56,7 @@ if [ ${config} -eq 1 ]; then
    rm -fr ${configok} ${buildok}
    sudo make uninstall
    sudo make clean distclean
-   export CFLAGS="-Ofast -funroll-all-loops -fforward-propagate -foptimize-strlen -finline-functions-called-once -finline-small-functions -finline-functions"
+   export CFLAGS="-Ofast -funroll-all-loops"
    ./configure \
       --prefix=/usr/local/ \
       --with-features=huge \
@@ -74,7 +74,7 @@ if [ ${config} -eq 1 ]; then
       --enable-gpm=yes \
       --enable-cscope \
       --with-gnome-includes=/usr/include/gtk-${gtkv}.0 \
-      --with-compiledby=simone.azzalin@kdpof.com 
+      --with-compiledby=simo.zz.dev@gmail.com 
 
    if [ $? -eq 0 ]; then
       touch ${configok}
