@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 reset
 
 cur_dir=${PWD}
@@ -14,34 +14,31 @@ n_cpus=$(cat /proc/cpuinfo  | grep processor | wc -l)
 configok=.config.ok
 buildok=.build.ok
 
-arg_idx=1
-args=("$@")
-
-for arg in ${args[@]}; do
-   case ${arg} in
-      -g | --gui)
-         gui=${args[$arg_idx]}
+while getopts ":g:ucbis:" o; do
+   case "${o}" in
+      g)
+         gui="${OPTARG}"
          ;;
-      -c | --config)
+      c)
          config=1
          ;;
-      -b | --build)
+      b)
          build=1
          ;;
-      -i | --install)
+      i)
          install=1
          ;;
-      -u | --update)
+      u)
          gitupdt=1
          ;;
-      -s | --src-dir)
-         src_dir=${args[$arg_idx]}
+      s)
+         src_dir="${OPTARG}"
          ;;
-      *) 
+      *)
          ;;
-   esac
-   arg_idx=$((arg_idx+1))
-done
+    esac
+ done
+shift $((OPTIND-1))
 
 if [ ! -z ${src_dir} ]; then
    cd ${src_dir}
