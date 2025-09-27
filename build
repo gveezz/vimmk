@@ -49,7 +49,7 @@ fi
 
 if [ ${gitupdt} -eq 1 ]; then
    git fetch --all --tags
-   git pull
+   git pull origin master
 fi
 
 if [ ${config} -eq 1 ]; then
