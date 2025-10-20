@@ -7,14 +7,14 @@ gui=gtk-${guiv}
 config=0
 build=0
 install=0
-src_dir=""
+src_dir="${PWD}/vim"
 gitupdt=0
 n_cpus=$(cat /proc/cpuinfo  | grep processor | wc -l)
 
 configok=.config.ok
 buildok=.build.ok
 
-while getopts ":g:ucbis:" o; do
+while getopts ":ag:ucbis:" o; do
    case "${o}" in
       g)
          gui="${OPTARG}"
@@ -34,6 +34,11 @@ while getopts ":g:ucbis:" o; do
       s)
          src_dir="${OPTARG}"
          ;;
+      a) gitupdt=1
+         config=1
+         build=1
+         install=1
+         ;;
       *)
          ;;
     esac
@@ -50,6 +55,7 @@ fi
 if [ ${gitupdt} -eq 1 ]; then
    git fetch --all --tags
    git pull
+   git submodule update
 fi
 
 if [ ${config} -eq 1 ]; then
