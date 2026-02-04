@@ -14,11 +14,15 @@ clean:
 uninstall: 
 	sudo $(MAKE) -C $(VIM_DIR) uninstall
 
-update:
-	git fetch --all --tags; \
-	git submodule update; \
-  	git pull
 
+update:
+	cd $(VIM_DIR); \
+	$(eval GIT_VIM_BRANCH = $(shell git branch | awk '{print $$2}'))
+	if [ "$(GIT_VIM_BRANCH)" != "master" ]; then \
+		git checkout master; \
+	fi; \
+	git fetch --all --tags && git pull origin master;
+  	
 config:
 	cd $(VIM_DIR); \
 	export CFLAGS="-Ofast"; \
