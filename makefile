@@ -9,7 +9,7 @@ NCPUS = $(shell cat /proc/cpuinfo  | grep processor | wc -l)
 all: update clean uninstall config compile install
 
 clean:
-	sudo $(MAKE) -C $(VIM_DIR) clean distclean
+	$(MAKE) -C $(VIM_DIR) clean distclean
 
 uninstall: 
 	sudo $(MAKE) -C $(VIM_DIR) uninstall
@@ -17,11 +17,11 @@ uninstall:
 
 update:
 	cd $(VIM_DIR); \
-	$(eval GIT_VIM_BRANCH = $(shell git branch | awk '{print $$2}'))
-	if [ "$(GIT_VIM_BRANCH)" != "master" ]; then \
+	if [ "$$(git branch | awk '{print $$2}')" != "master" ]; then \
 		git checkout master; \
 	fi; \
-	git fetch --all --tags && git pull origin master;
+	git fetch --all --tags; \
+	git pull
   	
 config:
 	cd $(VIM_DIR); \
